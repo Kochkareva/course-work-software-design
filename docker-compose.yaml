@@ -1,0 +1,24 @@
+version: '3'
+
+networks:
+  mynetwork:
+    driver: bridge
+
+
+services:
+  #database
+  postgresql:
+    #configuration
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: traininarium
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    restart: always
+    networks:
+      - mynetwork
+  
